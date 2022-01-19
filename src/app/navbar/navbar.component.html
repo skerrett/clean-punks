@@ -1,0 +1,13 @@
+<nav class="bg-black">
+    <div class="mx-auto px-2 sm:px-6 lg:px-8">
+        <div class="relative flex items-center justify-between h-16">
+            <!-- <div>
+                <a routerLink="/rarity">Rarity</a>
+            </div> -->
+            <button *ngIf="!walletAddress" (click)="syncButtonClicked()"
+                class="text-white text-xl ml-auto">Sync</button>
+            <button *ngIf="walletAddress" (click)="discountButtonClicked()"
+                class="text-white text-xl ml-auto">{{splitWalletAddress(walletAddress)}}</button>
+        </div>
+    </div>
+</nav>

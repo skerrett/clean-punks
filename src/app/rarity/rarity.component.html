@@ -1,0 +1,29 @@
+<div class="m-4">
+  <dx-data-grid id="gridContainer" [allowColumnResizing]="true" [dataSource]="gridData3" keyExpr="edition" [showBorders]="true"
+    [showColumnLines]="true" [showRowLines]="true" [columnHidingEnabled]="true" [columnAutoWidth]="true">
+    <dxo-filter-row [visible]="true"></dxo-filter-row>
+    <dxo-header-filter [visible]="true"></dxo-header-filter>
+    <dxo-search-panel [visible]="true" [width]="240" placeholder="Search..."></dxo-search-panel>
+    <dxo-column-chooser [enabled]="true" mode="select"></dxo-column-chooser>
+    <dxo-pager
+    [allowedPageSizes]="[20, 50, 100]"
+    [showInfo]="true"
+    [showNavigationButtons]="true"
+    [showPageSizeSelector]="true"
+    [visible]="true"
+  >
+  </dxo-pager>
+    <dxi-column dataField="Picture" [allowFiltering]="false" [allowSorting]="false"
+      cellTemplate="cellTemplate"></dxi-column>
+    <dxi-column  dataField="name"></dxi-column>
+    <dxi-column dataField="background"></dxi-column>
+    <dxi-column dataField="body"></dxi-column>
+    <dxi-column dataField="clothes"></dxi-column>
+    <dxi-column dataField="headware"></dxi-column>
+    <dxi-column dataField="eyeware"></dxi-column>
+    <dxi-column dataField="mouthpiece"></dxi-column>
+    <div *dxTemplate="let data of 'cellTemplate'">
+      <img style="width: 503px; height: 503;" [src]="returnImageUrl(data)" />
+    </div>
+  </dx-data-grid>
+</div>

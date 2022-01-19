@@ -1,0 +1,32 @@
+{
+  "name": "Clean Punk #1",
+  "description": "Clean Punks are a limited collection of Punks present on Tezos Blockchain. Each trait of Punk's is Handcreafted and programmatically, randomly generated.",
+  "image": "ipfs:// /1.png",
+  "edition": 1,
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Blue"
+    },
+    {
+      "trait_type": "Type",
+      "value": "ALIEN"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Bandana"
+    },
+    {
+      "trait_type": "Jewelry",
+      "value": "Gold Earring"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Joint"
+    },
+    {
+      "trait_type": "Eyes",
+      "value": "Normal"
+    }
+  ]
+}
