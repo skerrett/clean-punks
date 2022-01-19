@@ -3,9 +3,6 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "stream": [
-        "node_modules/readable-stream"
-      ],
       "path": [
         "node_modules/libsodium/dist/modules/libsodium.js"
       ],
