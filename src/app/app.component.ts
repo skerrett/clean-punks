@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TezosToolkit } from '@taquito/taquito';
+import { MichelsonMap, TezosToolkit } from '@taquito/taquito';
 import { BeaconWallet } from '@taquito/beacon-wallet';
 import {
   DAppClientOptions, BeaconEvent,
@@ -30,7 +30,8 @@ export class AppComponent {
   public walletConfig: DAppClientOptions = {
     name: 'MyAwesomeDapp',
     iconUrl: 'https://tezostaquito.io/img/favicon.png',
-    preferredNetwork: NetworkType.MAINNET,
+    preferredNetwork: NetworkType.HANGZHOUNET,
+    disableDefaultEvents: false,
     eventHandlers: {
       // To keep the pairing alert, we have to add the following default event handlers back
       [BeaconEvent.PAIR_INIT]: {
@@ -43,19 +44,42 @@ export class AppComponent {
   };
   public wallet: BeaconWallet | undefined = new BeaconWallet(this.walletConfig);
   // public wallet = new BeaconWallet(this.walletConfig);
-  public Tezos = new TezosToolkit('https://testnet-tezos.giganode.io');
+  public Tezos = new TezosToolkit('https://hangzhounet.api.tez.ie');
 
   public async onSyncClicked() {
     if (this.wallet) {
       await this.wallet.disconnect();
       await this.wallet.requestPermissions({
         network: {
-          type: NetworkType.MAINNET,
-          rpcUrl: "https://mainnet.api.tez.ie"
-        },
+          type: NetworkType.HANGZHOUNET,
+          rpcUrl: "https://hangzhounet.api.tez.ie",
+          name: 'MyAwesomeDapp',        },
       });
-      this.userAddress = await this.wallet.getPKH();
-      this.Tezos.setProvider(this.wallet as any);
+      const activeAccount = await this.wallet.client.getActiveAccount();
+      if(activeAccount){
+        this.userAddress = await this.wallet.getPKH();
+        const balance = await this.Tezos.tz.getBalance(this.userAddress);
+        if(balance){
+
+        }
+      }
+      this.Tezos.setProvider({wallet:this.wallet});
+      this.Tezos.contract
+      .at('KT1R5XmpQYtCwHS9VaRNzFnmwfLNKy71Ahhv')
+      .then(async (contract:any) => {
+        // return contract.methods['add_presale_addresses']([{
+        //   0:"tz1euTUPRdMQs88gCPYhpVJKjQvbYXJXSf3d",
+        //   1:0
+        // }]).send();
+        const x = await contract.methods.mint().send()
+        return x.confirmation();
+      })
+      .then((op:any) => {
+        console.log(`Waiting for ${op.hash} to be confirmed...`);
+        return op.confirmation(3).then(() => op.hash);
+      })
+      .then((hash) => console.log(`Operation injected: https://hangzhou.tzstats.com/${hash}`))
+      .catch((error) => console.log(`Error: ${JSON.stringify(error, null, 2)}`));
     }
   }
 

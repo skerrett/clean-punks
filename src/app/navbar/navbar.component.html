@@ -4,6 +4,8 @@
             <!-- <div>
                 <a routerLink="/rarity">Rarity</a>
             </div> -->
+            <button (click)="buyToken()"
+            class="text-white text-xl ml-auto">buy</button>
             <button *ngIf="!walletAddress" (click)="syncButtonClicked()"
                 class="text-white text-xl ml-auto">Sync</button>
             <button *ngIf="walletAddress" (click)="discountButtonClicked()"
